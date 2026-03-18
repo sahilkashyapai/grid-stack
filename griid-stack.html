@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gridstack Advanced Final</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/gridstack@9.2.0/dist/gridstack.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/grid-stack.css">
+</head>
+
+<body>
+
+    <div class="controls">
+        <button onclick="addWidget()">Add</button>
+        <button onclick="deleteSelected()">Delete</button>
+        <button id="swapBtn" onclick="confirmSwap()" disabled>Swap Grid</button>
+        <button onclick="saveLayout()">Save</button>
+        <button onclick="loadLayout()">Load</button>
+        <button onclick="resetLayout()">Reset</button>
+    </div>
+
+    <div class="grid-stack"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@9.2.0/dist/gridstack-all.js"></script>
+
+    <script src="./js/grid-stack.js"></script>
+
+</body>
+
+</html>

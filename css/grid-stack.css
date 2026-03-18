@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+.controls {
+    margin-bottom: 6px;
+    padding: 10px;
+}
+
+button {
+    padding: 8px 14px;
+    margin-right: 10px;
+    border: none;
+    background: #4a90e2;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #357bd8;
+}
+
+.grid-stack {
+    --grid-gap: 5px;
+    height: calc(100dvh - 60px);
+    /* Calculate square size */
+    --cell-size: calc((100vw - (11 * var(--grid-gap)) - 20px) / 12);
+
+    grid-auto-rows: var(--cell-size);
+}
+
+.grid-stack-item-content {
+    background: #8fb3c1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    height: 100%;
+    color: #fff;
+}
+
+.grid-stack-item-content {
+    height: calc(100% - 10px);
+    /* 👈 creates inner spacing */
+    margin: 5px;
+    /* 👈 half of gap */
+    background: #8fb3c1;
+    border-radius: 0px;
+}
+
+.grid-stack-item.selected .grid-stack-item-content {
+    outline: 3px solid yellow;
+}
