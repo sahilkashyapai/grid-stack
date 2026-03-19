@@ -1,11 +1,59 @@
 // 🔥 INIT GRID
 const grid = GridStack.init({
-    column: 12,
+    column: 9,
     margin: 5,
     float: false // 👈 IMPORTANT (prevents shifting)
 });
 
-// ------------------- HISTORY (UNDO) -------------------
+//  DEFAULT LAYOUT 
+const defaultLayout = [
+
+    // for 4X4 grid
+    // Row 1
+    // { x: 0, y: 0, w: 4, h: 1, content: '1' },
+    // { x: 4, y: 0, w: 4, h: 1, content: '2' },
+    // { x: 8, y: 0, w: 4, h: 1, content: '3' },
+    // { x: 12, y: 0, w: 4, h: 1, content: '4' },
+
+    // // Row 2
+    // { x: 0, y: 1, w: 4, h: 1, content: '5' },
+    // { x: 4, y: 1, w: 4, h: 1, content: '6' },
+    // { x: 8, y: 1, w: 4, h: 1, content: '7' },
+    // { x: 12, y: 1, w: 4, h: 1, content: '8' },
+
+    // // Row 3
+    // { x: 0, y: 2, w: 4, h: 1, content: '9' },
+    // { x: 4, y: 2, w: 4, h: 1, content: '10' },
+    // { x: 8, y: 2, w: 4, h: 1, content: '11' },
+    // { x: 12, y: 2, w: 4, h: 1, content: '12' },
+
+    // // Row 4
+    // { x: 0, y: 3, w: 4, h: 1, content: '13' },
+    // { x: 4, y: 3, w: 4, h: 1, content: '14' },
+    // { x: 8, y: 3, w: 4, h: 1, content: '15' },
+    // { x: 12, y: 3, w: 4, h: 1, content: '16' }
+
+
+
+    // for 3X3 grid
+    { x: 0, y: 0, w: 3, h: 1, content: '1' },
+    { x: 3, y: 0, w: 3, h: 1, content: '2' },
+    { x: 6, y: 0, w: 3, h: 1, content: '3' },
+
+    // Row 2
+    { x: 0, y: 1, w: 3, h: 1, content: '4' },
+    { x: 3, y: 1, w: 3, h: 1, content: '5' },
+    { x: 6, y: 1, w: 3, h: 1, content: '6' },
+
+    // Row 3
+    { x: 0, y: 2, w: 3, h: 1, content: '7' },
+    { x: 3, y: 2, w: 3, h: 1, content: '8' },
+    { x: 6, y: 2, w: 3, h: 1, content: '9' },
+
+
+];
+
+//  HISTORY (UNDO) 
 let historyStack = [];
 
 function saveState() {
@@ -26,16 +74,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ------------------- DEFAULT LAYOUT -------------------
-const defaultLayout = [
-    { x: 0, y: 0, w: 8, h: 3, content: 'Big Box' },
-    { x: 8, y: 0, w: 4, h: 1, content: 'Top Right' },
-    { x: 8, y: 1, w: 4, h: 2, content: 'Bottom Right' },
-    { x: 0, y: 3, w: 4, h: 2, content: 'Bottom 1' },
-    { x: 4, y: 3, w: 4, h: 2, content: 'Bottom 2' },
-    { x: 8, y: 3, w: 4, h: 2, content: 'Bottom 3' }
-];
-
 function loadDefault() {
     grid.removeAll();
 
@@ -51,7 +89,7 @@ function loadDefault() {
 
 loadDefault();
 
-// ------------------- RESIZE -------------------
+//  RESIZE 
 function resizeGrid() {
     const container = document.querySelector('.grid-stack');
     let maxRow = 0;
@@ -66,20 +104,20 @@ function resizeGrid() {
 window.addEventListener('load', () => setTimeout(resizeGrid, 100));
 window.addEventListener('resize', () => setTimeout(resizeGrid, 100));
 
-// ------------------- ADD -------------------
+//  ADD 
 function addWidget() {
     saveState();
 
     grid.addWidget({
         w: 3,
-        h: 2,
+        h: 1,
         content: `<div class="grid-stack-item-content">New</div>`
     });
 
     setTimeout(resizeGrid, 50);
 }
 
-// ------------------- SAVE / LOAD -------------------
+//  SAVE / LOAD 
 function saveLayout() {
     localStorage.setItem("layout", JSON.stringify(grid.save()));
 }
@@ -97,7 +135,7 @@ function resetLayout() {
     loadDefault();
 }
 
-// ------------------- SELECTION -------------------
+//  SELECTION 
 let selectedItems = [];
 
 document.addEventListener('click', function (e) {
@@ -119,7 +157,7 @@ document.addEventListener('click', function (e) {
     document.getElementById('swapBtn').disabled = selectedItems.length !== 2;
 });
 
-// ------------------- SWAP (TRUE REPLACE) -------------------
+//  SWAP (TRUE REPLACE) 
 function confirmSwap() {
     if (selectedItems.length !== 2) return;
 
@@ -161,7 +199,7 @@ function swapItems(el1, el2) {
     // 🔓 apply changes
     grid.commit();
 }
-// ------------------- DELETE -------------------
+//  DELETE 
 function deleteSelected() {
     if (selectedItems.length === 1) {
         saveState();
@@ -173,7 +211,7 @@ function deleteSelected() {
     }
 }
 
-// ------------------- AUTO SAVE ON DRAG -------------------
+//  AUTO SAVE ON DRAG 
 grid.on('change', () => {
     saveState();
 });

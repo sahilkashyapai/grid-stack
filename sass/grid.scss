@@ -1,0 +1,21 @@
+
+$columns: 16;
+
+@function fixed($float) {
+    @return calc(round($float * 1000) / 1000); // total 4-5 digits being %
+}
+
+.gs-#{$columns}>.grid-stack-item {
+
+    width: fixed(calc(100dvw / $columns));
+
+    @for $i from 1 through $columns - 1 {
+        &[gs-x='#{$i}'] {
+            left: fixed(calc(100dvw / $columns) * $i);
+        }
+
+        &[gs-w='#{$i+1}'] {
+            width: fixed(calc(100dvw / $columns) * ($i+1));
+        }
+    }
+}

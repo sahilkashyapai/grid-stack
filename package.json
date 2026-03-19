@@ -1,0 +1,11 @@
+{
+  "name": "grid-stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-sass": "sass --watch sass/grid.scss css/grid-scss.css"
+  },
+  "author": "",
+  "license": "ISC"
+}
